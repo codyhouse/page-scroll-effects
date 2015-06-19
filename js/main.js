@@ -15,15 +15,21 @@ jQuery(document).ready(function($){
 
 	
 	//check the media query and bind corresponding events
-	var MQ = deviceType();
-	bindEvents(MQ);
+	var MQ = deviceType(),
+		bindToggle = false;
+	
+	bindEvents(MQ, true);
+	
 	$(window).on('resize', function(){
 		MQ = deviceType();
-		bindEvents(MQ);
+		bindEvents(MQ, bindToggle);
+		if( MQ == 'mobile' ) bindToggle = true;
+		if( MQ == 'desktop' ) bindToggle = false;
 	});
 
-    function bindEvents(MQ) {
-    	if( MQ == 'desktop' ) {
+    function bindEvents(MQ, bool) {
+    	
+    	if( MQ == 'desktop' && bool) {   		
     		//bind the animation to the window scroll event, arrows click and keyboard
 			if( hijacking == 'on' ) {
 				initHijacking();
@@ -44,7 +50,7 @@ jQuery(document).ready(function($){
 			});
 			//set navigation arrows visibility
 			checkNavigation();
-		} else {
+		} else if( MQ == 'mobile' ) {
 			//reset and unbind
 			resetSectionStyle();
 			$(window).off('DOMMouseScroll mousewheel', scrollHijacking);
