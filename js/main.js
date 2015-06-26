@@ -41,7 +41,8 @@ jQuery(document).ready(function($){
 			prevArrow.on('click', prevSection);
     		nextArrow.on('click', nextSection);
     		
-    		$(document).on('keyup', function(event){
+    		$(document).on('keydown', function(event){
+    			event.preventDefault();
 				if( event.which=='40' && !nextArrow.hasClass('inactive') ) {
 					nextSection();
 				} else if( event.which=='38' && (!prevArrow.hasClass('inactive') || (prevArrow.hasClass('inactive') && $(window).scrollTop() != sectionsAvailable.eq(0).offset().top) ) ) {
@@ -57,7 +58,7 @@ jQuery(document).ready(function($){
 			$(window).off('scroll', scrollAnimation);
 			prevArrow.off('click', prevSection);
     		nextArrow.off('click', nextSection);
-    		$(document).off('keyup');
+    		$(document).off('keydown');
 		}
     }
 
