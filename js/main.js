@@ -42,10 +42,11 @@ jQuery(document).ready(function($){
     		nextArrow.on('click', nextSection);
     		
     		$(document).on('keydown', function(event){
-    			event.preventDefault();
 				if( event.which=='40' && !nextArrow.hasClass('inactive') ) {
+					event.preventDefault();
 					nextSection();
 				} else if( event.which=='38' && (!prevArrow.hasClass('inactive') || (prevArrow.hasClass('inactive') && $(window).scrollTop() != sectionsAvailable.eq(0).offset().top) ) ) {
+					event.preventDefault();
 					prevSection();
 				}
 			});
